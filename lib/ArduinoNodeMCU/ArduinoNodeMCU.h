@@ -10,4 +10,8 @@
 #define PIN_RXD0 3
 #define PIN_TXD0 1
 
+/* I2C Default Pins */
+#define PIN_SDA 4 // D1
+#define PIN_SCL 5 // D2
+
 #endif
