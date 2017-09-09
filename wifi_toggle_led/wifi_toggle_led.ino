@@ -1,3 +1,7 @@
+/*  Test code for NodeMCU
+    Toggle two LEDs
+    using webpage. */
+
 #include <ESP8266WiFi.h>
 #include <ArduinoNodeMCU.h>
 #include <WiFiSettings.h> // SSID & Password
@@ -85,6 +89,7 @@ void loop()
     Serial.println("");
 }
 
+/* Show webpage for client */
 void clientResponse()
 {
     client.println("HTTP/1.1 200 OK");

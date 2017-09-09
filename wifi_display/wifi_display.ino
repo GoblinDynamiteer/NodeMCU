@@ -1,3 +1,7 @@
+/*  Test code for NodeMCU
+    Set text on SSD1306-display
+    using webpage. */
+
 #include <ESP8266WiFi.h>
 #include <ArduinoNodeMCU.h>
 #include <WiFiSettings.h> // SSID & Password
@@ -7,13 +11,10 @@
 #define STRING_NOT_FOUND -1
 #define LINE_HEIGHT 15
 
-String toggle_red = "/TOGGLE-RED";
-String toggle_blue = "/TOGGLE-BLUE";
-
 WiFiServer server(80);
 WiFiClient client;
 
-SSD1306  display(0x3c, D3, D5);
+SSD1306 display(0x3c, D3, D5);
 
 void setup()
 {
@@ -74,9 +75,11 @@ void loop()
 
     if(request.indexOf("settext=") != STRING_NOT_FOUND)
     {
+        /* Strip http data */
         request.replace("GET /action_page.php?settext=", "");
         request.replace(" HTTP/1.1", "");
 
+        /* Set text from textbox to SSD1306-display */
         setText(request);
     }
 
@@ -87,9 +90,7 @@ void loop()
     Serial.println("");
 }
 
-
-
-
+/* Show webpage for client */
 void clientResponse()
 {
     client.println("HTTP/1.1 200 OK");
@@ -102,6 +103,7 @@ void clientResponse()
     client.println("<title>SET TEXT!</title>");
     client.println("<h1>SET TEXT!</h1>");
 
+    /* Show textbox and submit button */
     client.println("<form action=\"/action_page.php\">");
     client.println("Text:<br>");
     client.println("<input type=\"text\" name=\"settext\" value=\"HELLO\">");
