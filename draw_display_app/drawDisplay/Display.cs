@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace drawDisplay
+﻿namespace drawDisplay
 {
     class Display
     {
@@ -11,18 +7,6 @@ namespace drawDisplay
 
         private Pixel[] pixels;
         private XBMByte[] xbmArray;
-
-        private byte[] test_bits = {
-        0x13, 0x00, 0x15, 0x00, 0x93, 0xcd, 0x55, 0xa5, 0x93, 0xc5, 0x00, 0x80,
-        0x00, 0x60 };
-
-        /* XBM
-        #define test_width 16
-        #define test_height 7
-        static char test_bits[] = {
-        0x13, 0x00, 0x15, 0x00, 0x93, 0xcd, 0x55, 0xa5, 0x93, 0xc5, 0x00, 0x80,
-        0x00, 0x60 };
-         */
 
         /* Constructor */
         public Display()
@@ -35,6 +19,7 @@ namespace drawDisplay
 
         }
 
+        /* Set pixel state */
         public void SetPixel(bool state, int x, int y)
         {
             for (int i = 0; i < pixels.Length; i++)
@@ -47,6 +32,7 @@ namespace drawDisplay
             }
         }
 
+        /* Reset pixels / display data */
         public void Reset()
         {
             for (int i = 0; i < pixels.Length; i++)
@@ -62,6 +48,7 @@ namespace drawDisplay
         }
 
         #region initializers
+
         void InitPixels()
         {
             int i = 0;
@@ -148,6 +135,8 @@ namespace drawDisplay
 
     }
 
+    /* Holds 8 pixels each, for calculating each byte in
+     * XBitMap */
     class XBMByte
     {
         Pixel[] pixels;
@@ -171,6 +160,8 @@ namespace drawDisplay
         {
             foreach (Pixel pixel in pixels)
             {
+                /* Each byte represents 8 pixels
+                 * each bit is pixel on/off value */
                 if (pixel.IsSet())
                 {
                     this.value |= (1 << pixel.GetShiftValue());
@@ -178,6 +169,7 @@ namespace drawDisplay
             }
         }
 
+        /* Get number value */
         public int GetValue()
         {
             CalculateValue();
@@ -189,6 +181,7 @@ namespace drawDisplay
             value = 0;
         }
 
+        /* Calculates value and returns string in 0x00 format */
         public override string ToString()
         {
             CalculateValue();
