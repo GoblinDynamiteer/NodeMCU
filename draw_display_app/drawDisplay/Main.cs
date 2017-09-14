@@ -5,11 +5,10 @@ namespace drawDisplay
 {
     public partial class frmMain : Form
     {
-        int displayWidth = 128;
-        int displayHeight = 64;
-
         Graphics graphics;
         Brush brush = Brushes.White;
+
+        Display display;
 
         bool draw;
 
@@ -19,6 +18,7 @@ namespace drawDisplay
             SetPanel();
 
             graphics = panelDrawArea.CreateGraphics();
+            display = new Display();
 
             lblCursorX.Text = "X:";
             lblCursorY.Text = "Y:";
@@ -33,8 +33,8 @@ namespace drawDisplay
         /* Init panel */
         void SetPanel()
         {
-            panelDrawArea.Height = displayHeight;
-            panelDrawArea.Width = displayWidth;
+            panelDrawArea.Height = Display.Height;
+            panelDrawArea.Width = Display.Width;
             panelDrawArea.BackColor = Color.Black;
         }
 
@@ -53,7 +53,9 @@ namespace drawDisplay
                     e.Location.Y, 
                     int.Parse(textBoxDrawSize.Text), 
                     int.Parse(textBoxDrawSize.Text)
-               );
+                );
+
+                display.SetPixel(true, e.Location.X, e.Location.Y);
             }
         }
 
