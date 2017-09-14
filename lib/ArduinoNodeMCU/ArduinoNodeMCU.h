@@ -2,16 +2,24 @@
 #define ARDUINO_NODEMCU_H
 
 /* Pins */
-#define PIN_GPIO16 16
-#define PIN_GPIO5 5
-#define PIN_GPIO1 1
-#define PIN_GPIO3 3
+#define PIN_WIRE_SDA 4
+#define PIN_WIRE_SCL 5
+#define SDA PIN_WIRE_SDA
+#define SCL PIN_WIRE_SCL
 
-#define PIN_RXD0 3
-#define PIN_TXD0 1
+#define LED_BUILTIN 16
+#define BUILTIN_LED 16
 
-/* I2C Default Pins */
-#define PIN_SDA 4 // D1
-#define PIN_SCL 5 // D2
+#define D0 1
+#define D1 5
+#define D2 4
+#define D3 0
+#define D4 2
+#define D5 14
+#define D6 12
+#define D7 13
+#define D8 15
+#define D9 3
+#define D10 1
 
 #endif
