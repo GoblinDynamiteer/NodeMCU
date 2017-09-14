@@ -54,6 +54,11 @@ namespace drawDisplay
                 pixels[i].SetState(false);
             }
 
+            for (int i = 0; i < xbmArray.Length; i++)
+            {
+                xbmArray[i].Reset();
+            }
+
         }
 
         #region initializers
@@ -177,6 +182,11 @@ namespace drawDisplay
         {
             CalculateValue();
             return value;
+        }
+
+        public void Reset()
+        {
+            value = 0;
         }
 
         public override string ToString()

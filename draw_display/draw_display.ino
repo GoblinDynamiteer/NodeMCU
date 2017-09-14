@@ -2,6 +2,9 @@
     NodeMCU Arduino sketch
     Draw pixels on SSD1306-display from PC-app
 
+    To be used with draw_display_app on PC wit bluetooth
+    connection.
+
     by Johan Kampe
 
     Hookup:
