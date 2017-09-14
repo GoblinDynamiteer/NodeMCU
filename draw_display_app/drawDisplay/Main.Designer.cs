@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelDrawArea = new System.Windows.Forms.Panel();
             this.lblCursorX = new System.Windows.Forms.Label();
             this.lblCursorY = new System.Windows.Forms.Label();
@@ -36,6 +37,11 @@
             this.btnGenXBM = new System.Windows.Forms.Button();
             this.btnShowPix = new System.Windows.Forms.Button();
             this.btnXBMCode = new System.Windows.Forms.Button();
+            this.comboBoxPorts = new System.Windows.Forms.ComboBox();
+            this.serialPort = new System.IO.Ports.SerialPort(this.components);
+            this.textBoxData = new System.Windows.Forms.TextBox();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelDrawArea
@@ -70,7 +76,7 @@
             // 
             this.textBoxDrawSize.Location = new System.Drawing.Point(76, 216);
             this.textBoxDrawSize.Name = "textBoxDrawSize";
-            this.textBoxDrawSize.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDrawSize.Size = new System.Drawing.Size(58, 20);
             this.textBoxDrawSize.TabIndex = 3;
             this.textBoxDrawSize.Text = "1";
             // 
@@ -79,6 +85,7 @@
             this.textBoxXBMArray.Location = new System.Drawing.Point(260, 97);
             this.textBoxXBMArray.Multiline = true;
             this.textBoxXBMArray.Name = "textBoxXBMArray";
+            this.textBoxXBMArray.ReadOnly = true;
             this.textBoxXBMArray.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxXBMArray.Size = new System.Drawing.Size(381, 401);
             this.textBoxXBMArray.TabIndex = 4;
@@ -113,11 +120,55 @@
             this.btnXBMCode.UseVisualStyleBackColor = true;
             this.btnXBMCode.Click += new System.EventHandler(this.btnXBMCode_Click);
             // 
+            // comboBoxPorts
+            // 
+            this.comboBoxPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPorts.FormattingEnabled = true;
+            this.comboBoxPorts.Location = new System.Drawing.Point(76, 272);
+            this.comboBoxPorts.Name = "comboBoxPorts";
+            this.comboBoxPorts.Size = new System.Drawing.Size(150, 21);
+            this.comboBoxPorts.TabIndex = 8;
+            this.comboBoxPorts.SelectedIndexChanged += new System.EventHandler(this.comboBoxPorts_SelectedIndexChanged);
+            // 
+            // textBoxData
+            // 
+            this.textBoxData.Location = new System.Drawing.Point(76, 299);
+            this.textBoxData.Multiline = true;
+            this.textBoxData.Name = "textBoxData";
+            this.textBoxData.ReadOnly = true;
+            this.textBoxData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxData.Size = new System.Drawing.Size(150, 199);
+            this.textBoxData.TabIndex = 9;
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(379, 505);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(141, 61);
+            this.btnSend.TabIndex = 10;
+            this.btnSend.Text = "SEND DATA TO DISPLAY!";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(151, 216);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 11;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 578);
+            this.ClientSize = new System.Drawing.Size(789, 617);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.textBoxData);
+            this.Controls.Add(this.comboBoxPorts);
             this.Controls.Add(this.btnXBMCode);
             this.Controls.Add(this.btnShowPix);
             this.Controls.Add(this.btnGenXBM);
@@ -143,6 +194,11 @@
         private System.Windows.Forms.Button btnGenXBM;
         private System.Windows.Forms.Button btnShowPix;
         private System.Windows.Forms.Button btnXBMCode;
+        private System.Windows.Forms.ComboBox comboBoxPorts;
+        private System.IO.Ports.SerialPort serialPort;
+        private System.Windows.Forms.TextBox textBoxData;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

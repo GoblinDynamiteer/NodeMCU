@@ -47,6 +47,15 @@ namespace drawDisplay
             }
         }
 
+        public void Reset()
+        {
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                pixels[i].SetState(false);
+            }
+
+        }
+
         #region initializers
         void InitPixels()
         {
