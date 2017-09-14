@@ -35,14 +35,27 @@ namespace drawDisplay
 
         }
 
+        public void SetPixel(bool state, int x, int y)
+        {
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                if (x == pixels[i].X && y == pixels[i].Y)
+                {
+                    pixels[i].SetState(state);
+                    break;
+                }
+            }
+        }
+
+        #region initializers
         void InitPixels()
         {
             int i = 0;
             int shift = 0;
 
-            for (int x = 1; x <= Width; x++)
+            for (int y = 1; y <= Height; y++)
             {
-                for (int y = 1; y <= Height; y++)
+                for (int x = 1; x <= Width; x++)
                 {
                     pixels[i] = new Pixel(x, y, i++, shift++, false);
                     
@@ -77,19 +90,61 @@ namespace drawDisplay
             }
         }
 
+        #endregion
+
+        #region pixeldata
+        public int GetNumberOfPixels()
+        {
+            return pixels.Length;
+        }
+
+        public string PixelToString(int index)
+        {
+            return pixels[index].ToString();
+        }
+
+        #endregion
+
+        #region xbmdata
+
+        public int GetNumberOfXBMBytes()
+        {
+            return xbmArray.Length;
+        }
+
+        public string XBMArrayToString(int index)
+        {
+            return xbmArray[index].ToString();
+        }
+
+        /* Generates byte array */
+        public byte[] GenerateXBMImage()
+        {
+            byte[] array = new byte[xbmArray.Length];
+
+            for (int i = 0; i < xbmArray.Length; i++)
+            {
+                array[i] = (byte)xbmArray[i].GetValue();
+            }
+
+            return array;
+        }
+
+        #endregion
+
     }
 
     class XBMByte
     {
         Pixel[] pixels;
-        byte value;
+        int value;
 
         private int pixelIndex;
 
         public XBMByte()
         {
             pixels = new Pixel[8];
-            value = 0x00;
+            value = 0;
             pixelIndex = 0;
         }
 
@@ -100,20 +155,16 @@ namespace drawDisplay
 
         private void CalculateValue()
         {
-            int value = 0;
-
             foreach (Pixel pixel in pixels)
             {
                 if (pixel.IsSet())
                 {
-                    value |= 1 << pixel.GetShiftValue();
+                    this.value |= (1 << pixel.GetShiftValue());
                 }
             }
-
-            this.value = (byte)value;
         }
 
-        public byte GetValue()
+        public int GetValue()
         {
             CalculateValue();
             return value;
@@ -121,14 +172,32 @@ namespace drawDisplay
 
         public override string ToString()
         {
+            CalculateValue();
             return "0x" + value.ToString("X2");
         }
     }
 
     class Pixel
     {
-        int x, y, index, shift;
+        int index, shift;
         bool set;
+
+        private int x;
+
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        private int y;
+
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
 
         public Pixel(int x, int y, int index, int shift, bool set)
         {
@@ -144,6 +213,11 @@ namespace drawDisplay
             return set;
         }
 
+        public void SetState(bool state)
+        {
+            this.set = state;
+        }
+
         internal int GetShiftValue()
         {
             return shift;
@@ -151,7 +225,7 @@ namespace drawDisplay
 
         public override string ToString()
         {
-            return "Pixel " + index + "X: " + x + "Y:" + y;
+            return "Pixel " + index + " | X:" + x + " Y:" + y + (set ? " | SET" : " | NOT");
         }
     }
 }

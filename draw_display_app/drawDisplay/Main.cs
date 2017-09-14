@@ -24,8 +24,9 @@ namespace drawDisplay
             lblCursorY.Text = "Y:";
 
             draw = false;
-        }
 
+
+        }
 
         #region panel
 
@@ -54,7 +55,7 @@ namespace drawDisplay
                     int.Parse(textBoxDrawSize.Text)
                 );
 
-                //display.SetPixel(true, e.Location.X, e.Location.Y);
+                display.SetPixel(true, e.Location.X, e.Location.Y);
             }
         }
 
@@ -73,5 +74,56 @@ namespace drawDisplay
 
         #endregion
 
+        private void btnGenXBM_Click(object sender, System.EventArgs e)
+        {
+            textBoxXBMArray.Clear();
+
+            string content = "";
+
+            for (int i = 0; i < display.GetNumberOfXBMBytes(); i++)
+            {
+                content += display.XBMArrayToString(i) + "\r\n";
+            
+            }
+
+            textBoxXBMArray.Text = content;
+        }
+
+        private void btnShowPix_Click(object sender, System.EventArgs e)
+        {
+            textBoxXBMArray.Clear();
+
+            string content = "";
+
+            for (int i = 0; i < display.GetNumberOfPixels(); i++)
+            {
+                content += display.PixelToString(i) + "\r\n";
+            }
+
+            textBoxXBMArray.Text = content;
+        }
+
+        private void btnXBMCode_Click(object sender, System.EventArgs e)
+        {
+            textBoxXBMArray.Clear();
+
+            byte[] array = display.GenerateXBMImage();
+
+            string content = "const char test_bits[] = { \r\n";
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                content += "0x" + array[i].ToString("X2") + ", ";
+
+                if (i % 10 == 10)
+                {
+                    content += "\r\n";
+                }
+            }
+
+            content += "};";
+
+            textBoxXBMArray.Text = content;
+        }
     }
 }
