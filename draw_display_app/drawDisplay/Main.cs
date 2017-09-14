@@ -27,7 +27,6 @@ namespace drawDisplay
         }
 
 
-
         #region panel
 
         /* Init panel */
@@ -55,7 +54,7 @@ namespace drawDisplay
                     int.Parse(textBoxDrawSize.Text)
                 );
 
-                display.SetPixel(true, e.Location.X, e.Location.Y);
+                //display.SetPixel(true, e.Location.X, e.Location.Y);
             }
         }
 
@@ -73,5 +72,6 @@ namespace drawDisplay
         }
 
         #endregion
+
     }
 }

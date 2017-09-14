@@ -32,6 +32,7 @@
             this.lblCursorX = new System.Windows.Forms.Label();
             this.lblCursorY = new System.Windows.Forms.Label();
             this.textBoxDrawSize = new System.Windows.Forms.TextBox();
+            this.textBoxXBMArray = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // panelDrawArea
@@ -70,11 +71,20 @@
             this.textBoxDrawSize.TabIndex = 3;
             this.textBoxDrawSize.Text = "1";
             // 
+            // textBoxXBMArray
+            // 
+            this.textBoxXBMArray.Location = new System.Drawing.Point(260, 97);
+            this.textBoxXBMArray.Multiline = true;
+            this.textBoxXBMArray.Name = "textBoxXBMArray";
+            this.textBoxXBMArray.Size = new System.Drawing.Size(381, 401);
+            this.textBoxXBMArray.TabIndex = 4;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(789, 578);
+            this.Controls.Add(this.textBoxXBMArray);
             this.Controls.Add(this.textBoxDrawSize);
             this.Controls.Add(this.lblCursorY);
             this.Controls.Add(this.lblCursorX);
@@ -92,6 +102,7 @@
         private System.Windows.Forms.Label lblCursorX;
         private System.Windows.Forms.Label lblCursorY;
         private System.Windows.Forms.TextBox textBoxDrawSize;
+        private System.Windows.Forms.TextBox textBoxXBMArray;
     }
 }
 
