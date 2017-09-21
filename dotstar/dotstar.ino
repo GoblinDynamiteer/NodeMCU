@@ -176,7 +176,7 @@ void led_mode_single_color(void)
 void led_mode_breather(void)
 {
     static bool fade_up = false;
-    static int step = 5;
+    static int step = 2;
 
     if(millis() - timer >= strip_delay)
     {
@@ -195,7 +195,7 @@ void led_mode_breather(void)
                     pixel_color[i] + step :
                     pixel_color[i] - step;
 
-                if(pixel_color[i] < 20 || pixel_color[i] > 200)
+                if(pixel_color[i] < (step + 1) || pixel_color[i] > 200)
                 {
                     fade_up = !fade_up;
                 }
