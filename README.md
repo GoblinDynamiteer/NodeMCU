@@ -25,3 +25,7 @@ Set text on SSD1306-display using a webpage.
 ### wifi_toggle_led
 Toggle LEDs from webpage.<br>
 ![ledtoggleweb](https://raw.githubusercontent.com/GoblinDynamiteer/NodeMCU/master/images/wifi_led_toggler_web.PNG)
+
+### dotstar  
+Control an Adafruit DotStar LED-strip..<br>
+![dotstarapp](https://raw.githubusercontent.com/GoblinDynamiteer/NodeMCU/master/images/dotstar_app.PNG)
