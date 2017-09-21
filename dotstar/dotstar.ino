@@ -14,6 +14,7 @@ uint8_t current_mode;
 uint8_t current_color[3];
 String serial_data, serial_data_value;
 bool serial_data_complete;
+bool update;
 
 enum{ RED, GREEN, BLUE };
 
@@ -50,7 +51,9 @@ void setup()
 
     strip_mode[0] = led_mode_breather;
     strip_mode[1] = led_mode_chaser;
-    strip_mode[2] = led_mode_chaser;
+    strip_mode[2] = led_mode_single_color;
+
+    update = true;
 }
 
 
@@ -69,23 +72,29 @@ void loop()
         switch(command)
         {
             case 'R':
-                current_color[RED] = value;
+                current_color[RED] = value > 255 ? 255 : value;
                 break;
 
             case 'G':
-                current_color[GREEN] = value;
+                current_color[GREEN] = value > 255 ? 255 : value;
                 break;
 
             case 'B':
-                current_color[BLUE] = value;
+                current_color[BLUE] = value > 255 ? 255 : value;
                 break;
 
             case 'S': // Speed / delay
-                strip_delay = value;
+                if(value > 0)
+                {
+                    strip_delay = value;
+                }
                 break;
 
             case 'M': // Mode
-                current_mode = value;
+                if(value >= 0 && value <= 2)
+                {
+                    current_mode = value;
+                }
                 break;
 
             default:
@@ -95,6 +104,7 @@ void loop()
         serial_data = "";
         serial_data_value = "";
         serial_data_complete = false;
+        update = true;
     }
 }
 
@@ -126,6 +136,21 @@ uint32_t get_color(void)
         (uint32_t)(current_color[BLUE] << 16) |
         (uint32_t)(current_color[GREEN] << 8) |
         (uint32_t)(current_color[RED]);
+}
+
+void led_mode_single_color(void)
+{
+    if(update)
+    {
+        for(int i = 0; i < STRIP_NUM_LEDS; i++)
+        {
+            strip.setPixelColor(i, get_color());
+        }
+
+        strip.show();
+
+        update = false;
+    }
 }
 
 /* Fade current color up/down */
