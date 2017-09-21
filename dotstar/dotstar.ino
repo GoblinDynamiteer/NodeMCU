@@ -11,8 +11,10 @@ unsigned long timer;
 int strip_delay;
 int current_led;
 uint8_t current_color[3];
+String serial_data, serial_data_value;
+bool serial_data_complete;
 
-enum{ BLUE, GREEN, RED };
+enum{ RED, GREEN, BLUE };
 
 Adafruit_DotStar strip = Adafruit_DotStar(
     STRIP_NUM_LEDS,
@@ -26,7 +28,13 @@ void (*strip_mode[3])(void);
 void setup()
 {
     Serial.begin(9600);
-    
+
+    serial_data = "";
+    serial_data_value = "";
+    serial_data.reserve(20);
+    serial_data_value.reserve(20);
+    serial_data_complete = false;
+
     strip.begin();
     strip.setBrightness(250);
 
@@ -47,6 +55,56 @@ void setup()
 void loop()
 {
     strip_mode[0]();
+    serialEvent();
+
+    if(serial_data_complete)
+    {
+        Serial.println("Got command " + serial_data);
+
+        char command = serial_data[0];
+        int value = serial_data_value.toInt();
+
+        switch(command)
+        {
+            case 'R':
+                current_color[RED] = value;
+                break;
+
+            case 'G':
+                current_color[GREEN] = value;
+                break;
+
+            case 'B':
+                current_color[BLUE] = value;
+                break;
+
+            default:
+                break;
+        }
+
+        serial_data = "";
+        serial_data_value = "";
+        serial_data_complete = false;
+    }
+}
+
+void serialEvent()
+{
+    while (Serial.available())
+    {
+        char read_byte = (char)Serial.read();
+        serial_data += read_byte;
+
+        if(isDigit(read_byte))
+        {
+            serial_data_value += read_byte;
+        }
+
+        if (read_byte == '\n')
+        {
+            serial_data_complete = true;
+        }
+    }
 }
 
 void led_mode_breather(void)
@@ -86,9 +144,9 @@ uint32_t get_color(void)
 {
     return
         0x000000 |
-        (uint32_t)(current_color[RED] << 16) |
+        (uint32_t)(current_color[BLUE] << 16) |
         (uint32_t)(current_color[GREEN] << 8) |
-        (uint32_t)(current_color[BLUE]);
+        (uint32_t)(current_color[RED]);
 }
 
 void led_mode_chaser(void)
