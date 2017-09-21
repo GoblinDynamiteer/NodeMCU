@@ -8,6 +8,11 @@
 #define NODEMCU_PIN_CLOCK D8 //5
 #define STRIP_BRIGHTNESS_MAX 250
 
+unsigned long timer;
+int strip_delay;
+int current_led;
+int current_color;
+
 /*   Init LED-strip as "strip"  */
 Adafruit_DotStar strip = Adafruit_DotStar(
     STRIP_NUM_LEDS,
@@ -16,32 +21,56 @@ Adafruit_DotStar strip = Adafruit_DotStar(
     DOTSTAR_BRG
   );
 
+void (*strip_mode)(void);
+
 void setup()
 {
     strip.begin();
     strip.setBrightness(250);
+
+    timer = millis();
+    strip_delay = 30;
+    current_led = 0;
+    current_color = strip.Color(0, 0, 200);
+
+    strip_mode = led_mode_chaser;
 }
+
 
 void loop()
 {
-    for(int i = 0; i < STRIP_NUM_LEDS; i++)
+    strip_mode();
+}
+
+void led_mode_chaser(void)
+{
+    if(millis() - timer >= strip_delay)
     {
-        strip.setPixelColor(i, 0,0,255);
+        strip.setPixelColor(
+            current_led++,
+            current_color
+        );
+
         strip.show();
-        delay(50);
+
+        if(current_led >= STRIP_NUM_LEDS)
+        {
+            current_led = 0;
+            swap_rgb();
+        }
+
+        timer = millis();
+    }
+}
+
+/* Swaps R->G->B */
+void swap_rgb(void)
+{
+    if(current_color & 0xff0000)
+    {
+        current_color = 0x0000ff;
+        return;
     }
 
-    for(int i = 0; i < STRIP_NUM_LEDS; i++)
-    {
-        strip.setPixelColor(i, 0,255,0);
-        strip.show();
-        delay(50);
-    }
-
-    for(int i = 0; i < STRIP_NUM_LEDS; i++)
-    {
-        strip.setPixelColor(i, 255,0,0);
-        strip.show();
-        delay(50);
-    }
+    current_color = current_color << 8;
 }
