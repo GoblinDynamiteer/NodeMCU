@@ -10,6 +10,7 @@
 unsigned long timer;
 int strip_delay;
 int current_led;
+uint8_t current_mode;
 uint8_t current_color[3];
 String serial_data, serial_data_value;
 bool serial_data_complete;
@@ -41,6 +42,7 @@ void setup()
     timer = millis();
     strip_delay = 30;
     current_led = 0;
+    current_mode = 0;
 
     current_color[RED] = 0;
     current_color[GREEN] = 200;
@@ -54,7 +56,7 @@ void setup()
 
 void loop()
 {
-    strip_mode[0]();
+    strip_mode[current_mode]();
     serialEvent();
 
     if(serial_data_complete)
@@ -78,6 +80,14 @@ void loop()
                 current_color[BLUE] = value;
                 break;
 
+            case 'S': // Speed / delay
+                strip_delay = value;
+                break;
+
+            case 'M': // Mode
+                current_mode = value;
+                break;
+
             default:
                 break;
         }
@@ -88,6 +98,7 @@ void loop()
     }
 }
 
+/* Read serial Data */
 void serialEvent()
 {
     while (Serial.available())
@@ -107,6 +118,17 @@ void serialEvent()
     }
 }
 
+/* Convert byte RGB values to single int */
+uint32_t get_color(void)
+{
+    return
+        0x000000 |
+        (uint32_t)(current_color[BLUE] << 16) |
+        (uint32_t)(current_color[GREEN] << 8) |
+        (uint32_t)(current_color[RED]);
+}
+
+/* Fade current color up/down */
 void led_mode_breather(void)
 {
     static bool fade_up = false;
@@ -140,15 +162,7 @@ void led_mode_breather(void)
     }
 }
 
-uint32_t get_color(void)
-{
-    return
-        0x000000 |
-        (uint32_t)(current_color[BLUE] << 16) |
-        (uint32_t)(current_color[GREEN] << 8) |
-        (uint32_t)(current_color[RED]);
-}
-
+/* Run R-G-B sequences on strip */
 void led_mode_chaser(void)
 {
     if(millis() - timer >= strip_delay)
