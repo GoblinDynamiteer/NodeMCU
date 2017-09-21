@@ -2,7 +2,7 @@
 #include <Adafruit_DotStar.h>
 #include <ArduinoNodeMCU.h>
 
-#define STRIP_NUM_LEDS 50
+#define STRIP_NUM_LEDS 49
 #define NODEMCU_PIN_DATA D5 // 4
 #define NODEMCU_PIN_CLOCK D8 //5
 #define STRIP_BRIGHTNESS_MAX 250
@@ -17,6 +17,9 @@ bool serial_data_complete;
 bool update;
 
 enum{ RED, GREEN, BLUE };
+enum{ MODE_BREATHER, MODE_CHASER, MODE_STATIC, MODE_MANUAL, MAX_MODES };
+
+const String mode_name [] = {"Breather", "Chaser", "Static", "Manual" };
 
 Adafruit_DotStar strip = Adafruit_DotStar(
     STRIP_NUM_LEDS,
@@ -25,7 +28,7 @@ Adafruit_DotStar strip = Adafruit_DotStar(
     DOTSTAR_RGB
   );
 
-void (*strip_mode[3])(void);
+void (*strip_mode[4])(void);
 
 void setup()
 {
@@ -43,15 +46,16 @@ void setup()
     timer = millis();
     strip_delay = 30;
     current_led = 0;
-    current_mode = 0;
+    current_mode = MODE_BREATHER;
 
     current_color[RED] = 0;
     current_color[GREEN] = 200;
     current_color[BLUE] = 0;
 
-    strip_mode[0] = led_mode_breather;
-    strip_mode[1] = led_mode_chaser;
-    strip_mode[2] = led_mode_single_color;
+    strip_mode[MODE_BREATHER] = led_mode_breather;
+    strip_mode[MODE_CHASER] = led_mode_chaser;
+    strip_mode[MODE_STATIC] = led_mode_single_color;
+    strip_mode[MODE_MANUAL] = led_mode_manual;
 
     update = true;
 }
@@ -91,11 +95,30 @@ void loop()
                 break;
 
             case 'M': // Mode
-                if(value >= 0 && value <= 2)
+                if(value >= 0 && value < MAX_MODES)
                 {
                     current_mode = value;
                 }
                 break;
+
+            case 'Q': // Query
+                Serial.println("Connected to DotStar controller!");
+                Serial.println("Current mode: " + mode_name[current_mode]);
+                Serial.println("Color: R"
+                    + String(current_color[RED]) + " G"
+                    + String(current_color[GREEN]) + " B"
+                    + String(current_color[BLUE]));
+                break;
+
+            case 'P': // Set pixel in manual mode
+            {
+                if(current_mode == MODE_MANUAL
+                    && value >= 0 && value <= 50)
+                {
+                    strip.setPixelColor(value, get_color());
+                    strip.show();
+                }
+            }
 
             default:
                 break;
@@ -136,6 +159,11 @@ uint32_t get_color(void)
         (uint32_t)(current_color[BLUE] << 16) |
         (uint32_t)(current_color[GREEN] << 8) |
         (uint32_t)(current_color[RED]);
+}
+
+void led_mode_manual(void)
+{
+    return;
 }
 
 void led_mode_single_color(void)
