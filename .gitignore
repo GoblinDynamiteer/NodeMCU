@@ -217,7 +217,7 @@ FakesAssemblies/
 _Pvt_Extensions
 
 #user
-*.sln
+
 *.config
 Properties/
 *.csproj
