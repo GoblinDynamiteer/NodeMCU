@@ -2,7 +2,6 @@
 #include <Adafruit_DotStar.h>
 #include <ArduinoNodeMCU.h>
 
-/*   Led-strip   */
 #define STRIP_NUM_LEDS 50
 #define NODEMCU_PIN_DATA D5 // 4
 #define NODEMCU_PIN_CLOCK D8 //5
@@ -11,35 +10,85 @@
 unsigned long timer;
 int strip_delay;
 int current_led;
-int current_color;
+uint8_t current_color[3];
 
-/*   Init LED-strip as "strip"  */
+enum{ BLUE, GREEN, RED };
+
 Adafruit_DotStar strip = Adafruit_DotStar(
     STRIP_NUM_LEDS,
     NODEMCU_PIN_DATA,
     NODEMCU_PIN_CLOCK,
-    DOTSTAR_BRG
+    DOTSTAR_RGB
   );
 
-void (*strip_mode)(void);
+void (*strip_mode[3])(void);
 
 void setup()
 {
+    Serial.begin(9600);
+    
     strip.begin();
     strip.setBrightness(250);
 
     timer = millis();
     strip_delay = 30;
     current_led = 0;
-    current_color = strip.Color(0, 0, 200);
 
-    strip_mode = led_mode_chaser;
+    current_color[RED] = 0;
+    current_color[GREEN] = 200;
+    current_color[BLUE] = 0;
+
+    strip_mode[0] = led_mode_breather;
+    strip_mode[1] = led_mode_chaser;
+    strip_mode[2] = led_mode_chaser;
 }
 
 
 void loop()
 {
-    strip_mode();
+    strip_mode[0]();
+}
+
+void led_mode_breather(void)
+{
+    static bool fade_up = false;
+    static int step = 5;
+
+    if(millis() - timer >= strip_delay)
+    {
+        for(int i = 0; i < STRIP_NUM_LEDS; i++)
+        {
+            strip.setPixelColor(i, get_color());
+        }
+
+        strip.show();
+
+        for(int i = 0; i < 3; i++)
+        {
+            if(current_color[i])
+            {
+                current_color[i] = fade_up ?
+                    current_color[i] + step :
+                    current_color[i] - step;
+
+                if(current_color[i] < 20 || current_color[i] > 200)
+                {
+                    fade_up = !fade_up;
+                }
+            }
+        }
+
+        timer = millis();
+    }
+}
+
+uint32_t get_color(void)
+{
+    return
+        0x000000 |
+        (uint32_t)(current_color[RED] << 16) |
+        (uint32_t)(current_color[GREEN] << 8) |
+        (uint32_t)(current_color[BLUE]);
 }
 
 void led_mode_chaser(void)
@@ -48,7 +97,7 @@ void led_mode_chaser(void)
     {
         strip.setPixelColor(
             current_led++,
-            current_color
+            get_color()
         );
 
         strip.show();
@@ -66,11 +115,26 @@ void led_mode_chaser(void)
 /* Swaps R->G->B */
 void swap_rgb(void)
 {
-    if(current_color & 0xff0000)
+    if(current_color[RED])
     {
-        current_color = 0x0000ff;
+        current_color[GREEN] = current_color[RED];
+        current_color[RED] = 0;
+        current_color[BLUE] = 0;
         return;
     }
 
-    current_color = current_color << 8;
+    if(current_color[GREEN])
+    {
+        current_color[BLUE] = current_color[GREEN];
+        current_color[RED] = 0;
+        current_color[GREEN] = 0;
+        return;
+    }
+
+    if(current_color[BLUE])
+    {
+        current_color[RED] = current_color[BLUE];
+        current_color[GREEN] = 0;
+        current_color[BLUE] = 0;
+    }
 }
