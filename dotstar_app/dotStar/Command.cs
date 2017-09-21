@@ -58,6 +58,8 @@ namespace dotStar
                     commands[i] + comboBoxModes.SelectedIndex.ToString());
             }
 
+            scrollDelay.Enabled = comboBoxModes.SelectedIndex != (int)Mode.Static;
+
         }
 
         /* Query button */
@@ -69,6 +71,45 @@ namespace dotStar
                 int i = (int)Command.Status;
                 serialPort.WriteLine(
                     commands[i] + comboBoxModes.SelectedIndex.ToString());
+            }
+        }
+
+        private void scrollColorRed_Scroll(
+            object sender, ScrollEventArgs e)
+        {
+            drawLed();
+
+            if (serialPort.IsOpen)
+            {
+                int i = (int)Command.Red;
+                serialPort.WriteLine(
+                    commands[i] + scrollColorRed.Value.ToString());
+            }
+        }
+
+        private void scrollColorGreen_Scroll(
+            object sender, ScrollEventArgs e)
+        {
+            drawLed();
+
+            if (serialPort.IsOpen)
+            {
+                int i = (int)Command.Green;
+                serialPort.WriteLine(
+                    commands[i] + scrollColorGreen.Value.ToString());
+            }
+        }
+
+        private void scrollColorBlue_Scroll(
+            object sender, ScrollEventArgs e)
+        {
+            drawLed();
+
+            if (serialPort.IsOpen)
+            {
+                int i = (int)Command.Blue;
+                serialPort.WriteLine(
+                    commands[i] + scrollColorBlue.Value.ToString());
             }
         }
     }

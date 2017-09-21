@@ -40,6 +40,13 @@
             this.scrollDelay = new System.Windows.Forms.HScrollBar();
             this.lblDelay = new System.Windows.Forms.Label();
             this.btnQuery = new System.Windows.Forms.Button();
+            this.scrollColorRed = new System.Windows.Forms.HScrollBar();
+            this.scrollColorGreen = new System.Windows.Forms.HScrollBar();
+            this.scrollColorBlue = new System.Windows.Forms.HScrollBar();
+            this.groupBoxRGB = new System.Windows.Forms.GroupBox();
+            this.pictureLED = new System.Windows.Forms.PictureBox();
+            this.groupBoxRGB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLED)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort
@@ -109,7 +116,7 @@
             // 
             // scrollDelay
             // 
-            this.scrollDelay.Location = new System.Drawing.Point(12, 108);
+            this.scrollDelay.Location = new System.Drawing.Point(23, 110);
             this.scrollDelay.Maximum = 500;
             this.scrollDelay.Minimum = 1;
             this.scrollDelay.Name = "scrollDelay";
@@ -121,7 +128,7 @@
             // lblDelay
             // 
             this.lblDelay.AutoSize = true;
-            this.lblDelay.Location = new System.Drawing.Point(12, 83);
+            this.lblDelay.Location = new System.Drawing.Point(23, 85);
             this.lblDelay.Name = "lblDelay";
             this.lblDelay.Size = new System.Drawing.Size(49, 13);
             this.lblDelay.TabIndex = 7;
@@ -137,11 +144,60 @@
             this.btnQuery.UseVisualStyleBackColor = true;
             this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
+            // scrollColorRed
+            // 
+            this.scrollColorRed.Location = new System.Drawing.Point(8, 30);
+            this.scrollColorRed.Maximum = 255;
+            this.scrollColorRed.Name = "scrollColorRed";
+            this.scrollColorRed.Size = new System.Drawing.Size(192, 17);
+            this.scrollColorRed.TabIndex = 9;
+            this.scrollColorRed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollColorRed_Scroll);
+            // 
+            // scrollColorGreen
+            // 
+            this.scrollColorGreen.Location = new System.Drawing.Point(8, 53);
+            this.scrollColorGreen.Maximum = 255;
+            this.scrollColorGreen.Name = "scrollColorGreen";
+            this.scrollColorGreen.Size = new System.Drawing.Size(192, 17);
+            this.scrollColorGreen.TabIndex = 10;
+            this.scrollColorGreen.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollColorGreen_Scroll);
+            // 
+            // scrollColorBlue
+            // 
+            this.scrollColorBlue.Location = new System.Drawing.Point(8, 76);
+            this.scrollColorBlue.Maximum = 255;
+            this.scrollColorBlue.Name = "scrollColorBlue";
+            this.scrollColorBlue.Size = new System.Drawing.Size(192, 17);
+            this.scrollColorBlue.TabIndex = 11;
+            this.scrollColorBlue.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollColorBlue_Scroll);
+            // 
+            // groupBoxRGB
+            // 
+            this.groupBoxRGB.Controls.Add(this.scrollColorRed);
+            this.groupBoxRGB.Controls.Add(this.scrollColorBlue);
+            this.groupBoxRGB.Controls.Add(this.scrollColorGreen);
+            this.groupBoxRGB.Location = new System.Drawing.Point(15, 144);
+            this.groupBoxRGB.Name = "groupBoxRGB";
+            this.groupBoxRGB.Size = new System.Drawing.Size(221, 112);
+            this.groupBoxRGB.TabIndex = 12;
+            this.groupBoxRGB.TabStop = false;
+            this.groupBoxRGB.Text = "RGB LED Control";
+            // 
+            // pictureLED
+            // 
+            this.pictureLED.Location = new System.Drawing.Point(242, 161);
+            this.pictureLED.Name = "pictureLED";
+            this.pictureLED.Size = new System.Drawing.Size(107, 82);
+            this.pictureLED.TabIndex = 13;
+            this.pictureLED.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 502);
+            this.ClientSize = new System.Drawing.Size(396, 502);
+            this.Controls.Add(this.pictureLED);
+            this.Controls.Add(this.groupBoxRGB);
             this.Controls.Add(this.btnQuery);
             this.Controls.Add(this.lblDelay);
             this.Controls.Add(this.scrollDelay);
@@ -153,6 +209,8 @@
             this.Controls.Add(this.textBoxData);
             this.Name = "Main";
             this.Text = "DotStar Controller App";
+            this.groupBoxRGB.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLED)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,6 +229,11 @@
         private System.Windows.Forms.HScrollBar scrollDelay;
         private System.Windows.Forms.Label lblDelay;
         private System.Windows.Forms.Button btnQuery;
+        private System.Windows.Forms.HScrollBar scrollColorRed;
+        private System.Windows.Forms.HScrollBar scrollColorGreen;
+        private System.Windows.Forms.HScrollBar scrollColorBlue;
+        private System.Windows.Forms.GroupBox groupBoxRGB;
+        private System.Windows.Forms.PictureBox pictureLED;
     }
 }
 
