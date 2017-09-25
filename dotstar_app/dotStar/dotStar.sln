@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotStar", "dotStar.csproj", "{3579CD2F-7676-4FE1-80E3-B5364706EE46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotstar", "dotstar.csproj", "{24F11F5A-02A6-4B09-9FCD-D33AC41A2DE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3579CD2F-7676-4FE1-80E3-B5364706EE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3579CD2F-7676-4FE1-80E3-B5364706EE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3579CD2F-7676-4FE1-80E3-B5364706EE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3579CD2F-7676-4FE1-80E3-B5364706EE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F11F5A-02A6-4B09-9FCD-D33AC41A2DE8}.Debug|x86.ActiveCfg = Debug|x86
+		{24F11F5A-02A6-4B09-9FCD-D33AC41A2DE8}.Debug|x86.Build.0 = Debug|x86
+		{24F11F5A-02A6-4B09-9FCD-D33AC41A2DE8}.Release|x86.ActiveCfg = Release|x86
+		{24F11F5A-02A6-4B09-9FCD-D33AC41A2DE8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {28615131-733B-4E07-A055-4A0C454A3F16}
+		SolutionGuid = {4BD03779-E728-4154-899A-26418ADAEA25}
 	EndGlobalSection
 EndGlobal

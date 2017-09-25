@@ -2,7 +2,7 @@
 #include <Adafruit_DotStar.h>
 #include <ArduinoNodeMCU.h>
 
-#define STRIP_NUM_LEDS 49
+#define STRIP_NUM_LEDS 48
 #define NODEMCU_PIN_DATA D5 // 4 // Arduino
 #define NODEMCU_PIN_CLOCK D8 // 5 // Arduino
 #define STRIP_BRIGHTNESS_MAX 250
@@ -302,11 +302,23 @@ void handle_command(void)
         case 'P': // Set pixel in manual mode
         {
             if(current_mode == MODE_MANUAL
-                && value >= 0 && value <= 50)
+                && value >= 0 && value < STRIP_NUM_LEDS)
             {
                 strip.setPixelColor(value, get_color());
                 strip.show();
             }
+            break;
+        }
+
+        case 'C': // Clear pixel in manual mode
+        {
+            if(current_mode == MODE_MANUAL
+                && value >= 0 && value < STRIP_NUM_LEDS)
+            {
+                strip.setPixelColor(value, 0x000000);
+                strip.show();
+            }
+            break;
         }
 
         default:

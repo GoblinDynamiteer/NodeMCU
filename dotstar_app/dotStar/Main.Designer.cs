@@ -45,6 +45,7 @@
             this.scrollColorBlue = new System.Windows.Forms.HScrollBar();
             this.groupBoxRGB = new System.Windows.Forms.GroupBox();
             this.pictureLED = new System.Windows.Forms.PictureBox();
+            this.checkListLEDs = new System.Windows.Forms.CheckedListBox();
             this.groupBoxRGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLED)).BeginInit();
             this.SuspendLayout();
@@ -55,26 +56,29 @@
             // 
             // textBoxData
             // 
-            this.textBoxData.Location = new System.Drawing.Point(12, 346);
+            this.textBoxData.Location = new System.Drawing.Point(24, 665);
+            this.textBoxData.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxData.Multiline = true;
             this.textBoxData.Name = "textBoxData";
             this.textBoxData.ReadOnly = true;
-            this.textBoxData.Size = new System.Drawing.Size(195, 144);
+            this.textBoxData.Size = new System.Drawing.Size(386, 273);
             this.textBoxData.TabIndex = 0;
             // 
             // comboBoxPorts
             // 
             this.comboBoxPorts.FormattingEnabled = true;
-            this.comboBoxPorts.Location = new System.Drawing.Point(12, 306);
+            this.comboBoxPorts.Location = new System.Drawing.Point(24, 588);
+            this.comboBoxPorts.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxPorts.Name = "comboBoxPorts";
-            this.comboBoxPorts.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPorts.Size = new System.Drawing.Size(238, 33);
             this.comboBoxPorts.TabIndex = 1;
             // 
             // btnChangePort
             // 
-            this.btnChangePort.Location = new System.Drawing.Point(139, 306);
+            this.btnChangePort.Location = new System.Drawing.Point(278, 588);
+            this.btnChangePort.Margin = new System.Windows.Forms.Padding(6);
             this.btnChangePort.Name = "btnChangePort";
-            this.btnChangePort.Size = new System.Drawing.Size(68, 21);
+            this.btnChangePort.Size = new System.Drawing.Size(136, 40);
             this.btnChangePort.TabIndex = 2;
             this.btnChangePort.Text = "Open";
             this.btnChangePort.UseVisualStyleBackColor = true;
@@ -83,27 +87,30 @@
             // comboBoxModes
             // 
             this.comboBoxModes.FormattingEnabled = true;
-            this.comboBoxModes.Location = new System.Drawing.Point(12, 33);
+            this.comboBoxModes.Location = new System.Drawing.Point(24, 63);
+            this.comboBoxModes.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxModes.Name = "comboBoxModes";
-            this.comboBoxModes.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxModes.Size = new System.Drawing.Size(238, 33);
             this.comboBoxModes.TabIndex = 3;
             this.comboBoxModes.SelectedIndexChanged += new System.EventHandler(this.comboBoxModes_SelectedIndexChanged);
             // 
             // lblMode
             // 
             this.lblMode.AutoSize = true;
-            this.lblMode.Location = new System.Drawing.Point(9, 17);
+            this.lblMode.Location = new System.Drawing.Point(18, 33);
+            this.lblMode.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(34, 13);
+            this.lblMode.Size = new System.Drawing.Size(66, 25);
             this.lblMode.TabIndex = 4;
             this.lblMode.Text = "Mode";
             // 
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(9, 290);
+            this.lblPort.Location = new System.Drawing.Point(18, 558);
+            this.lblPort.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblPort.Name = "lblPort";
-            this.lblPort.Size = new System.Drawing.Size(26, 13);
+            this.lblPort.Size = new System.Drawing.Size(51, 25);
             this.lblPort.TabIndex = 5;
             this.lblPort.Text = "Port";
             // 
@@ -116,11 +123,11 @@
             // 
             // scrollDelay
             // 
-            this.scrollDelay.Location = new System.Drawing.Point(23, 110);
+            this.scrollDelay.Location = new System.Drawing.Point(46, 212);
             this.scrollDelay.Maximum = 500;
             this.scrollDelay.Minimum = 1;
             this.scrollDelay.Name = "scrollDelay";
-            this.scrollDelay.Size = new System.Drawing.Size(195, 17);
+            this.scrollDelay.Size = new System.Drawing.Size(390, 17);
             this.scrollDelay.TabIndex = 6;
             this.scrollDelay.Value = 1;
             this.scrollDelay.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollDelay_Scroll);
@@ -128,17 +135,19 @@
             // lblDelay
             // 
             this.lblDelay.AutoSize = true;
-            this.lblDelay.Location = new System.Drawing.Point(23, 85);
+            this.lblDelay.Location = new System.Drawing.Point(46, 163);
+            this.lblDelay.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDelay.Name = "lblDelay";
-            this.lblDelay.Size = new System.Drawing.Size(49, 13);
+            this.lblDelay.Size = new System.Drawing.Size(97, 25);
             this.lblDelay.TabIndex = 7;
             this.lblDelay.Text = "Delay:  1";
             // 
             // btnQuery
             // 
-            this.btnQuery.Location = new System.Drawing.Point(213, 467);
+            this.btnQuery.Location = new System.Drawing.Point(426, 898);
+            this.btnQuery.Margin = new System.Windows.Forms.Padding(6);
             this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(37, 23);
+            this.btnQuery.Size = new System.Drawing.Size(74, 44);
             this.btnQuery.TabIndex = 8;
             this.btnQuery.Text = "?";
             this.btnQuery.UseVisualStyleBackColor = true;
@@ -146,28 +155,28 @@
             // 
             // scrollColorRed
             // 
-            this.scrollColorRed.Location = new System.Drawing.Point(8, 30);
+            this.scrollColorRed.Location = new System.Drawing.Point(16, 58);
             this.scrollColorRed.Maximum = 255;
             this.scrollColorRed.Name = "scrollColorRed";
-            this.scrollColorRed.Size = new System.Drawing.Size(192, 17);
+            this.scrollColorRed.Size = new System.Drawing.Size(384, 17);
             this.scrollColorRed.TabIndex = 9;
             this.scrollColorRed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollColorRed_Scroll);
             // 
             // scrollColorGreen
             // 
-            this.scrollColorGreen.Location = new System.Drawing.Point(8, 53);
+            this.scrollColorGreen.Location = new System.Drawing.Point(16, 102);
             this.scrollColorGreen.Maximum = 255;
             this.scrollColorGreen.Name = "scrollColorGreen";
-            this.scrollColorGreen.Size = new System.Drawing.Size(192, 17);
+            this.scrollColorGreen.Size = new System.Drawing.Size(384, 17);
             this.scrollColorGreen.TabIndex = 10;
             this.scrollColorGreen.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollColorGreen_Scroll);
             // 
             // scrollColorBlue
             // 
-            this.scrollColorBlue.Location = new System.Drawing.Point(8, 76);
+            this.scrollColorBlue.Location = new System.Drawing.Point(16, 146);
             this.scrollColorBlue.Maximum = 255;
             this.scrollColorBlue.Name = "scrollColorBlue";
-            this.scrollColorBlue.Size = new System.Drawing.Size(192, 17);
+            this.scrollColorBlue.Size = new System.Drawing.Size(384, 17);
             this.scrollColorBlue.TabIndex = 11;
             this.scrollColorBlue.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollColorBlue_Scroll);
             // 
@@ -176,26 +185,41 @@
             this.groupBoxRGB.Controls.Add(this.scrollColorRed);
             this.groupBoxRGB.Controls.Add(this.scrollColorBlue);
             this.groupBoxRGB.Controls.Add(this.scrollColorGreen);
-            this.groupBoxRGB.Location = new System.Drawing.Point(15, 144);
+            this.groupBoxRGB.Location = new System.Drawing.Point(30, 277);
+            this.groupBoxRGB.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxRGB.Name = "groupBoxRGB";
-            this.groupBoxRGB.Size = new System.Drawing.Size(221, 112);
+            this.groupBoxRGB.Padding = new System.Windows.Forms.Padding(6);
+            this.groupBoxRGB.Size = new System.Drawing.Size(442, 215);
             this.groupBoxRGB.TabIndex = 12;
             this.groupBoxRGB.TabStop = false;
             this.groupBoxRGB.Text = "RGB LED Control";
             // 
             // pictureLED
             // 
-            this.pictureLED.Location = new System.Drawing.Point(242, 161);
+            this.pictureLED.Location = new System.Drawing.Point(484, 310);
+            this.pictureLED.Margin = new System.Windows.Forms.Padding(6);
             this.pictureLED.Name = "pictureLED";
-            this.pictureLED.Size = new System.Drawing.Size(107, 82);
+            this.pictureLED.Size = new System.Drawing.Size(214, 158);
             this.pictureLED.TabIndex = 13;
             this.pictureLED.TabStop = false;
             // 
+            // checkListLEDs
+            // 
+            this.checkListLEDs.FormattingEnabled = true;
+            this.checkListLEDs.Items.AddRange(new object[] {
+            "LED0"});
+            this.checkListLEDs.Location = new System.Drawing.Point(484, 506);
+            this.checkListLEDs.Name = "checkListLEDs";
+            this.checkListLEDs.Size = new System.Drawing.Size(253, 264);
+            this.checkListLEDs.TabIndex = 14;
+            this.checkListLEDs.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkListLEDs_ItemCheck);
+            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 502);
+            this.ClientSize = new System.Drawing.Size(792, 965);
+            this.Controls.Add(this.checkListLEDs);
             this.Controls.Add(this.pictureLED);
             this.Controls.Add(this.groupBoxRGB);
             this.Controls.Add(this.btnQuery);
@@ -207,6 +231,7 @@
             this.Controls.Add(this.btnChangePort);
             this.Controls.Add(this.comboBoxPorts);
             this.Controls.Add(this.textBoxData);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Main";
             this.Text = "DotStar Controller App";
             this.groupBoxRGB.ResumeLayout(false);
@@ -234,6 +259,7 @@
         private System.Windows.Forms.HScrollBar scrollColorBlue;
         private System.Windows.Forms.GroupBox groupBoxRGB;
         private System.Windows.Forms.PictureBox pictureLED;
+        private System.Windows.Forms.CheckedListBox checkListLEDs;
     }
 }
 

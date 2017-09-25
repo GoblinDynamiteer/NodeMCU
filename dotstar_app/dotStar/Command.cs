@@ -6,7 +6,7 @@ namespace dotStar
     public partial class Main : Form
     {
         char[] commands = {
-            'R', 'G', 'B', 'S', 'M', 'Q'
+            'R', 'G', 'B', 'S', 'M', 'Q', 'P', 'C'
         };
 
         String[] modeName = {
@@ -20,7 +20,9 @@ namespace dotStar
             Blue,
             Speed,
             Mode,
-            Status
+            Status,
+            SetPixel,
+            ClearPixel
         }
 
         enum Mode
@@ -112,5 +114,29 @@ namespace dotStar
                     commands[i] + scrollColorBlue.Value.ToString());
             }
         }
+
+        private void checkListLEDs_ItemCheck(
+            object sender, ItemCheckEventArgs e)
+        {
+            int i = 0;
+            int ledIndex = checkListLEDs.SelectedIndex;
+
+            if (e.NewValue == CheckState.Checked)
+            {
+                i = (int)Command.SetPixel;
+            }
+
+            if (e.NewValue == CheckState.Unchecked)
+            {
+                i = (int)Command.ClearPixel;
+            }
+
+            if (serialPort.IsOpen)
+            {
+                serialPort.WriteLine(commands[i] + "" + ledIndex);
+                return;
+            }
+        }
+
     }
 }
